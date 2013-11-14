@@ -190,7 +190,7 @@ public class ZonalStatsOpImage extends NullOpImage {
 
             // copy the ranges defensively
             for (Range<Double> r : ranges) {
-                this.ranges.add(new Range<Double>(r));
+                this.ranges.add(r.clone());
             }
         }
 
@@ -199,7 +199,7 @@ public class ZonalStatsOpImage extends NullOpImage {
 
             // copy the ranges defensively
             for (Range<Double> r : noDataRanges) {
-                this.noDataRanges.add(new Range<Double>(r));
+                this.noDataRanges.add(r.clone());
             }
         }
     }
