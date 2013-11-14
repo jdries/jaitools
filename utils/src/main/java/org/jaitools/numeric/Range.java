@@ -58,7 +58,7 @@ package org.jaitools.numeric;
  * @since 1.0
  * @version $Id$
  */
-public class Range<T extends Number & Comparable> {
+public class Range<T extends Number & Comparable> implements Cloneable{
 
     /**
      * Constants to specify whether a {@code Range} parameter defines 
@@ -585,7 +585,7 @@ public class Range<T extends Number & Comparable> {
                     return false;
                 }
             }
-            
+
             return true;
         }
     }
@@ -710,7 +710,15 @@ public class Range<T extends Number & Comparable> {
         RangeExtendedComparator<T> rc = new RangeExtendedComparator<T>();
         return rc.compare(this, other);
     }
+
+
+    @Override
+    public Range<T> clone(){
+        try {
+            Range<T> clone = (Range<T>) super.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
-
-
-
