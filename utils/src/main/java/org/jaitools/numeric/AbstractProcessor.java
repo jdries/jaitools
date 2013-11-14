@@ -95,7 +95,7 @@ public abstract class AbstractProcessor implements Processor {
     public void addNoDataRange(Range<Double> noData) {
         if (noData != null) {
             // copy the input Range defensively
-            noDataRanges.add(new Range<Double>(noData));
+            noDataRanges.add(noData.clone());
         }
     }
 
@@ -170,7 +170,7 @@ public abstract class AbstractProcessor implements Processor {
                 this.rangesType = Range.Type.EXCLUDE;
             }
             // copy the input Range defensively
-            ranges.add(new Range<Double>(range));
+            ranges.add(range.clone());
         }
     }
 
@@ -187,7 +187,7 @@ public abstract class AbstractProcessor implements Processor {
                 }
             }
             // copy the input Range defensively
-            ranges.add(new Range<Double>(range));
+            ranges.add(range.clone());
         }
     }
 
