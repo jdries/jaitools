@@ -184,7 +184,7 @@ public class StreamingSampleStats {
      * @param noData the range defining NoData values
      */
     public void addNoDataRange(Range<Double> noData) {
-        noDataRanges.add(new Range<Double>(noData));
+        noDataRanges.add(noData.clone());
 
         for (Processor p : processors) {
             p.addNoDataRange(noData);
@@ -212,7 +212,7 @@ public class StreamingSampleStats {
      * @param range the range to include/exclude
      */
     public void addRange(Range<Double> range) {
-        ranges.add(new Range<Double>(range));
+        ranges.add(range.clone());
 
         for (Processor p : processors) {
             p.addRange(range);
@@ -231,7 +231,7 @@ public class StreamingSampleStats {
         for (Processor p : processors) {
             p.addRange(range, rangesType);
         }
-        ranges.add(new Range<Double>(range));
+        ranges.add(range.clone());
     }
 
     /**
