@@ -133,6 +133,28 @@ public class RangeLookupTable<T extends Number & Comparable<? super T>, U extend
         return Collections.unmodifiableList(items);
     }
 
+    private static class SingletonRangeLUT<T extends Number & Comparable<? super T>, U extends Number & Comparable<? super U>> extends RangeLookupTable<T,U>{
+        private final LookupItem<T, U> item;
+
+        private SingletonRangeLUT(LookupItem<T, U> item) {
+            super(new Builder());
+            this.item = item;
+        }
+
+        @Override
+        public LookupItem<T, U> getLookupItem(T srcValue) {
+            if (item.getRange().contains(srcValue)) {
+                return item;
+            }else{
+                return null;
+            }
+        }
+
+        @Override
+        public String toString() {
+            return item.toString();
+        }
+    }
 
     /**
      * Builder to create an immutable lookup table.
@@ -157,7 +179,11 @@ public class RangeLookupTable<T extends Number & Comparable<? super T>, U extend
          * @return a new table instance
          */
         public RangeLookupTable<T, U> build() {
-            return new RangeLookupTable<T, U>(this);
+            if(items.size()==1) {
+                return new SingletonRangeLUT<T, U>(items.get(0));
+            }else{
+                return new RangeLookupTable<T, U>(this);
+            }
         }
         
         /**
