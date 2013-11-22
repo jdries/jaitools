@@ -136,9 +136,9 @@ public class RangeLookupTable<T extends Number & Comparable<? super T>, U extend
     private static class SingletonRangeLUT<T extends Number & Comparable<? super T>, U extends Number & Comparable<? super U>> extends RangeLookupTable<T,U>{
         private final LookupItem<T, U> item;
 
-        private SingletonRangeLUT(LookupItem<T, U> item) {
-            super(new Builder());
-            this.item = item;
+        private SingletonRangeLUT(Builder<T,U> builder) {
+            super(builder);
+            this.item = builder.items.get(0);
         }
 
         @Override
@@ -150,10 +150,6 @@ public class RangeLookupTable<T extends Number & Comparable<? super T>, U extend
             }
         }
 
-        @Override
-        public String toString() {
-            return item.toString();
-        }
     }
 
     /**
@@ -180,7 +176,7 @@ public class RangeLookupTable<T extends Number & Comparable<? super T>, U extend
          */
         public RangeLookupTable<T, U> build() {
             if(items.size()==1) {
-                return new SingletonRangeLUT<T, U>(items.get(0));
+                return new SingletonRangeLUT<T, U>(this);
             }else{
                 return new RangeLookupTable<T, U>(this);
             }
